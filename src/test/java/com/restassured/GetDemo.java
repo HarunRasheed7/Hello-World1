@@ -67,7 +67,7 @@ public class GetDemo {
 	System.out.println(res.getStatusCode());
 	System.out.println(res.getStatusLine());
 	}
-	@Test
+	//@Test
 	void apiTest() {
 		Response response = RestAssured.get("https://reqres.in/api/users?page=2");
 		String s = response.asPrettyString();
@@ -82,6 +82,15 @@ public class GetDemo {
 		}
 		System.out.println(firstName);
 	}
+	@Test
+	void apiPost() {
+		RestAssured.baseURI="https://reqres.in/";
+		RestAssured.basePath="api/register";
+		
+		given().contentType(ContentType.JSON).when().body("{\r\n" + 
+				"    \"email\": \"eve.holt@reqres.in\",\r\n" + 
+				"    \"password\": \"pistol\"\r\n" + 
+				"}").post().then().assertThat().statusCode(200).log().all();
 	
-	
+	}
 }
